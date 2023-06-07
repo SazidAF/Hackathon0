@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <h1>Home</h1> 
+   <h2>This is  a demo Project Showcase</h2>
+   <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex labore dolor atque facilis aut voluptatibus neque assumenda provident illo deserunt doloremque accusantium dicta pariatur architecto exercitationem, vitae optio totam id.</p>
+   <h2>Add a Project </h2>
+   <form action="" id="addProject">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title">
+    <br>
+    <label for="description">Description</label>
+    <input type="text" name="description" id="description">
+    <br>
+    <label for="text">Text</label>
+    <input type="text" name="text" id="text">
+    <br>
+    <button type="submit">Submit</button>
+    </form>
+    <p id="errorMsg" style="color: red"></p>
+    <script>
+       async function postData(url = "", data = {}) {
+            const response = await fetch(url, {
+                method: "POST", 
+                mode:"cors",
+                headers: {
+                "Content-Type": "application/json",
+            },
+                body: JSON.stringify(data), 
+            });
+            return response.json(); 
+        }
+        
+
+        let addProject = document.getElementById("addProject");
+
+        addProject.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const text = document.getElementById('text').value;
+            const p = document.getElementById("errorMsg");
+
+            if ( title == "" || description == "" || text == "") {
+                p.innerHTML = "Please Enter all the fields!";
+            } else {
+                p.innerHTML = "";
+                const formData = { title, description, text }
+                postData("http://localhost:8000/add", {...formData})
+                .then((data) => console.log(data))
+                .catch((error) => console.log(error));
+
+            }
+
+
+        })
+
+
+    </script>
+</body>
+</html>
