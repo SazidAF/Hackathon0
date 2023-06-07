@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <h1>Projects</h1> 
+   <ul id="project-list">
+    <li>
+        <div>
+            <h2>Project 1</h2>
+            <h3>Short Description</h3>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla dicta perferendis, quod asperiores quo facilis vero sapiente consequatur enim in eligendi quidem, ipsam, eum vitae fuga culpa eos numquam dignissimos!</p>
+        </div>
+    </li>
+    <li>
+        <div>
+            <h2>Project 1</h2>
+            <h3>Short Description</h3>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla dicta perferendis, quod asperiores quo facilis vero sapiente consequatur enim in eligendi quidem, ipsam, eum vitae fuga culpa eos numquam dignissimos!</p>
+        </div>
+    </li>
+   </ul>
+   <script>
+    const ul = document.getElementById('project-list');
+    let projects = []; 
+    projects = [{
+        title: "Project 1",
+        description: "Short Description",
+        text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla dicta perferendis, quod asperiores quo facilis vero sapiente consequatur enim in eligendi quidem, ipsam, eum vitae fuga culpa eos numquam dignissimos!"
+    }, {
+        title: "Project 2",
+        description: "Short Description",
+        text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla dicta perferendis, quod asperiores quo facilis vero sapiente consequatur enim in eligendi quidem, ipsam, eum vitae fuga culpa eos numquam dignissimos!"
+    }]
+
+
+    const showProject = (h2Text, h3Text, pText) => {
+
+        let li = document.createElement('li');
+        let div = document.createElement('div');
+
+        let h2 = document.createElement('h2');
+        h2.innerHTML = h2Text;
+
+        let h3 = document.createElement('h3');
+        h3.innerHTML = h3Text;
+
+        let p = document.createElement('p');
+        p.innerHTML = pText;
+
+        div.append(h2, h3, p);
+        li.appendChild(div);
+        ul.appendChild(li);
+        console.log(h2Text, h3Text, pText);
+    }
+
+
+    for( let i = 0; i < projects.length; i++) {
+        showProject(projects[i].title, projects[i].description, projects[i].text);
+    }
+
+   </script>
+</body>
+</html>
