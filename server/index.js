@@ -5,13 +5,16 @@ const reqhandler = (req, res) => {
     const url = req.url;
     const method = req.method;
 
-    if(url == "/") {
+    
+
+    if (url == "/") {
         fs.readFile("./home.html", (error, data) => {
             res.write(data);
             res.end();
         });
     } else if (url == "/projects") {
-        fs.readFile("./projects.html", (error, data) => {
+        
+        fs.readFile("./projects .html", (error, data) => {
             res.write(data);
             res.end();
         });
@@ -21,10 +24,21 @@ const reqhandler = (req, res) => {
             res.end();
         });
     } else if (url == "/add" && method == "POST") {
-        const title = req.body;
-        console.log(title);
+        let requestBody = [];
+
+        req.on('data', chunk => {
+            requestBody.push(chunk);
+        });
+
+        req.on('end', () => {
+            const requestData = Buffer.concat(requestBody).toString();
+            const data = JSON.parse(requestData);
+            console.log(data);
+            res.end();
+        });
     }
 }
+
 
 const server = http.createServer(reqhandler);
 
