@@ -11,28 +11,31 @@
    <ul id="project-list">
     <li>
         <div>
-            <h2>Project 1</h2>
-            <h3>Short Description</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla dicta perferendis, quod asperiores quo facilis vero sapiente consequatur enim in eligendi quidem, ipsam, eum vitae fuga culpa eos numquam dignissimos!</p>
-        </div>
-    </li>
-    <li>
-        <div>
-            <h2>Project 1</h2>
+            <h2>Project 0</h2>
             <h3>Short Description</h3>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla dicta perferendis, quod asperiores quo facilis vero sapiente consequatur enim in eligendi quidem, ipsam, eum vitae fuga culpa eos numquam dignissimos!</p>
         </div>
     </li>
    </ul>
+   <h2>Add a Project </h2>
+   <form id="addProject">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title">
+    <br>
+    <label for="description">Description</label>
+    <input type="text" name="description" id="description">
+    <br>
+    <label for="text">Text</label>
+    <input type="text" name="text" id="text">
+    <br>
+    <button type="submit">Submit</button>
+    </form>
+    <p id="errorMsg" style="color: red"></p>
    <script>
     const ul = document.getElementById('project-list');
-    let projects = []; 
+    let projects = [];
     projects = [{
         title: "Project 1",
-        description: "Short Description",
-        text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla dicta perferendis, quod asperiores quo facilis vero sapiente consequatur enim in eligendi quidem, ipsam, eum vitae fuga culpa eos numquam dignissimos!"
-    }, {
-        title: "Project 2",
         description: "Short Description",
         text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla dicta perferendis, quod asperiores quo facilis vero sapiente consequatur enim in eligendi quidem, ipsam, eum vitae fuga culpa eos numquam dignissimos!"
     }]
@@ -63,7 +66,38 @@
         showProject(projects[i].title, projects[i].description, projects[i].text);
     }
 
+    document.addEventListener("DOMContentLoaded", () =>   { 
+    const addProject = document.getElementById("addProject");
+    const p = document.getElementById("errorMsg");
 
+
+    addProject.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const text = document.getElementById('text').value;
+        const formData = { title, description, text }
+        
+        if ( title == "" || description == "" || text == "") {
+            p.innerText = "Please Enter all the fields!";
+        } else {
+            p.innerText = "";
+            fetch("http://localhost:8000/add", {
+                method: "POST",
+                body: JSON.stringify(formData),
+                headers: {
+                    "Content-type": "application/json"
+                }
+
+            })
+            .then(response => response.json())
+            .catch(error => console.log(error));
+            
+        }
+        });
+
+    });
    </script>
 </body>
 </html>
